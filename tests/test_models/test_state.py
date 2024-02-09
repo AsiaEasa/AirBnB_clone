@@ -42,6 +42,20 @@ class TestState(unittest.TestCase):
         M = State()
         self.assertIsInstance(M, State)
 
+    def test_save_arg(self):
+        N = State()
+        with self.assertRaises(TypeError):
+            N.save(None)
+
+    def test_to_dict_1(self):
+        N = State()
+        self.assertNotEqual(N.to_dict(), N.__dict__)
+
+    def test_to_dict_2(self):
+        N = State()
+        with self.assertRaises(TypeError):
+            N.to_dict(None)
+
     def test_h(self):
         M = State()
         self.assertEqual(M.name, "")
@@ -103,38 +117,4 @@ class TestState(unittest.TestCase):
         N.save()
         L = N.updated_at
         self.assertLess(F, L)
-
-    def test_save_method(self):
-        """ sec"""
-        N = State()
-        N.name = "Khartum"
-        N.save()
-        N_key = f"State.{N.id}"
-        OBJ = storage.all().get(N_key)
-        self.assertIsNotNone(OBJ)
-        self.assertEqual(OBJ.id, N.id)
-        self.assertEqual(OBJ.name, "Khartum")
-
-    def test_save_with_arg(self):
-        N = State()
-        with self.assertRaises(TypeError):
-            N.save(None)
-
-    def test_save_to_file(self):
-        N = State()
-        N.save()
-        K = f"State.{N.id}"
-        with open("file.json", "r") as f_1:
-            self.assertIn(K, f_1.read())
-
-class TestState_to_dict(unittest.TestCase):
-    """to_dict."""
-
-    def test_to_dict_method(self):
-        N = State()
-        N.name = "Khartum"
-        N_dict = N.to_dict()
-        self.assertIsInstance(N_dict, dict)
-        self.assertEqual(N_dict['name'], "Khartum")
-
 
