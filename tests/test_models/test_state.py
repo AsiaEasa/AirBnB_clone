@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""unittests for models/state.py.
+"""unittests for state
 """
 import models
 import unittest
@@ -116,3 +116,7 @@ class TestState(unittest.TestCase):
         N.save()
         L = N.updated_at
         self.assertLess(F, L)
+
+
+if __name__ == "__main__":
+    unittest.main()
