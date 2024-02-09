@@ -64,13 +64,6 @@ class TestState(unittest.TestCase):
         N.name = "Khartum"
         self.assertEqual(N.name, "Khartum")
 
-    def test_to_dict_method(self):
-        N = State()
-        N.name = "Khartum"
-        N_dict = N.to_dict()
-        self.assertIsInstance(N_dict, dict)
-        self.assertEqual(N_dict['name'], "Khartum")
-
     def test_2_created_at(self):
         N1 = State()
         N2 = State()
@@ -94,6 +87,23 @@ class TestState(unittest.TestCase):
         self.assertIn("'created_at': " + D_repr, ST)
         self.assertIn("'updated_at': " + D_repr, ST)
 
+    def test_equal_of_ins(self):
+        """ sec"""
+        D = datetime.today()
+        D_IOS = D.isoformat()
+        N = State(id="3333", created_at=D_IOS, updated_at=D_IOS)
+        self.assertEqual(N.id, "3333")
+        self.assertEqual(N.created_at, D)
+        self.assertEqual(N.updated_at, D)
+
+    def test_save(self):
+        """ sec"""
+        N = State()
+        F = N.updated_at
+        N.save()
+        L = N.updated_at
+        self.assertLess(F, L)
+
     def test_save_method(self):
         """ sec"""
         N = State()
@@ -105,43 +115,26 @@ class TestState(unittest.TestCase):
         self.assertEqual(OBJ.id, N.id)
         self.assertEqual(OBJ.name, "Khartum")
 
-    def test_equal_of_ins(self):
-        """ sec"""
-        D = datetime.today()
-        D_IOS = D.isoformat()
-        N = State(id="3333", created_at=D_IOS, updated_at=D_IOS)
-        self.assertEqual(N.id, "3333")
-        self.assertEqual(N.created_at, D)
-        self.assertEqual(N.updated_at, D)
-
-
-class TestState_save(unittest.TestCase):
-    """save."""
-    """
-    @classmethod
-    def setUp(self):
-        try:
-            os.rename("file.json", "tmp")
-        except IOError:
-            pass
-
-    def tearDown(self):
-        try:
-            os.remove("file.json")
-        except IOError:
-            pass
-        try:
-            os.rename("tmp", "file.json")
-        except IOError:
-            pass
-    """
-
-    def test_save(self):
-        """ sec"""
+    def test_save_with_arg(self):
         N = State()
-        F = N.updated_at
+        with self.assertRaises(TypeError):
+            N.save(None)
+
+    def test_save_to_file(self):
+        N = State()
         N.save()
-        L = N.updated_at
-        self.assertLess(F, L)
+        K = f"State.{N.id}"
+        with open("file.json", "r") as f_1:
+            self.assertIn(K, f_1.read())
+
+class TestState_to_dict(unittest.TestCase):
+    """to_dict."""
+
+    def test_to_dict_method(self):
+        N = State()
+        N.name = "Khartum"
+        N_dict = N.to_dict()
+        self.assertIsInstance(N_dict, dict)
+        self.assertEqual(N_dict['name'], "Khartum")
 
 
