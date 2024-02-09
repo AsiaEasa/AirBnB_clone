@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""unittests for models/amenity.py.
+"""unittests for amenity
 """
 
 import models
@@ -117,3 +117,7 @@ class TestAmenity(unittest.TestCase):
         N.save()
         L = N.updated_at
         self.assertLess(F, L)
+
+
+if __name__ == "__main__":
+    unittest.main()

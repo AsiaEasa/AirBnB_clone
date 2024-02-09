@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""unittests for models/base_model.py.
+"""unittests for base_model
 """
 import models
 import unittest
@@ -153,3 +153,7 @@ class TestBaseModel(unittest.TestCase):
         N.save()
         L = N.updated_at
         self.assertLess(F, L)
+
+
+if __name__ == "__main__":
+    unittest.main()
