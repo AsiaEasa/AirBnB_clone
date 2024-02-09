@@ -120,5 +120,19 @@ class TestCity(unittest.TestCase):
         L = N.updated_at
         self.assertLess(F, L)
 
+    def test_args(self):
+        N = City()
+        self.assertIsInstance(N, City)
+        self.assertEqual(N.state_id, "")
+        self.assertEqual(N.name, "")
 
+    def test_city_attr(self):
+        N = City()
+        self.assertTrue(hasattr(N, 'state_id'))
+        self.assertTrue(hasattr(N, 'name'))
+
+    def test_city_2(self):
+        N = City(state_id='SU', name='Khartum')
+        self.assertEqual(N.state_id, 'SU')
+        self.assertEqual(N.name, 'Khartum')
 
