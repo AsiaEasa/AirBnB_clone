@@ -147,7 +147,7 @@ class TestUser(unittest.TestCase):
             last_name="Smith",
         )
         user_dict = user.to_dict()
-        self.assertEqual(user_dict["email"], "YUSRAsmith@example.com")
+        self.assertEqual(user_dict["email"], "YUSRA@example.com")
         self.assertEqual(user_dict["password"], "password123")
         self.assertEqual(user_dict["first_name"], "YUSRA")
         self.assertEqual(user_dict["last_name"], "Smith")
