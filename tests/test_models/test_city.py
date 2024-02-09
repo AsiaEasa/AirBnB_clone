@@ -2,11 +2,9 @@
 """unittests for models/City.py.
 """
 
-import os
 import models
 import unittest
 from datetime import datetime
-from time import sleep
 from models.city import City
 from models import storage
 
@@ -28,7 +26,6 @@ class TestCity(unittest.TestCase):
 
     def test_updated_at_type(self):
         self.assertEqual(datetime, type(City().updated_at))
-
 
     def test_args_unused(self):
         N = City(None)
@@ -74,10 +71,8 @@ class TestCity(unittest.TestCase):
     def test_name_type(self):
         self.assertEqual(str, type(City.name))
 
-
     def test_state_id_type(self):
         self.assertEqual(str, type(City.state_id))
-
 
     def test_state_id_attr(self):
         N = City()
@@ -88,7 +83,6 @@ class TestCity(unittest.TestCase):
         N = City()
         self.assertIn("name", dir(N))
         self.assertNotIn("name", N.__dict__)
-
 
     def test_str_rep(self):
         """ sec"""
@@ -135,4 +129,3 @@ class TestCity(unittest.TestCase):
         N = City(state_id='SU', name='Khartum')
         self.assertEqual(N.state_id, 'SU')
         self.assertEqual(N.name, 'Khartum')
-

@@ -2,7 +2,6 @@
 """unittests for models/amenity.py.
 """
 
-import os
 import models
 import unittest
 from datetime import datetime

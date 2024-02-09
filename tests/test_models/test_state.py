@@ -1,11 +1,9 @@
 #!/usr/bin/python3
 """unittests for models/state.py.
 """
-import os
 import models
 import unittest
 from datetime import datetime
-from time import sleep
 from models.state import State
 from models import storage
 
