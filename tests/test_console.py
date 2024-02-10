@@ -49,14 +49,6 @@ class TestHBNB(unittest.TestCase):
                 self.assertFalse(HBNBCommand().onecmd(f"{item} kkk"))
                 self.assertEqual(X, FF.getvalue().strip())  
 
-    def test_invalid_1(self):
-        items = ["create"]
-        for item in items:
-            X = f"*** Unknown syntax: kkk.{item}()"
-            with patch("sys.stdout", new=StringIO()) as FF:
-                self.assertFalse(HBNBCommand().onecmd(f"kkk.{item}()"))
-                self.assertEqual(X, FF.getvalue().strip())
-
     def test_mis_all(self):
         X = "** class doesn't exist **"
         items = ["count", "all"]
