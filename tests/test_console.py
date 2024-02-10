@@ -18,3 +18,12 @@ class TestHBNBCommand_create(unittest.TestCase):
         with patch("sys.stdout", new=StringIO()) as FF:
             self.assertFalse(HBNBCommand().onecmd("create"))
             self.assertEqual(X, FF.getvalue().strip())
+
+    def test_mis_all(self):
+        X = "** class doesn't exist **"
+        with patch("sys.stdout", new=StringIO()) as FF:
+            self.assertFalse(HBNBCommand().onecmd("MyModel.all()"))
+            self.assertEqual(X, FF.getvalue().strip())
+
+    def test_update_miss(self):
+        correct = "** value missing **"
