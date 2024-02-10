@@ -77,6 +77,10 @@ class HBNBCommand(cmd.Cmd):
                             )
                         return ""
 
+        print(f"*** Unknown syntax: {arg}")
+
+        return False
+
     def do_all(self, arg):
         """Prints string representation of all instances or to any class.
         """
