@@ -13,12 +13,6 @@ from unittest.mock import patch
 class TestHBNBCommand_create(unittest.TestCase):
     """create"""
 
-    def test_mis_class(self):
-        X = "** class name missing **"
-        with patch("sys.stdout", new=StringIO()) as FF:
-            self.assertFalse(HBNBCommand().onecmd("create"))
-            self.assertEqual(X, FF.getvalue().strip())
-
     def test_mis_1(self):
         X = "** class doesn't exist **"
         items = ["all", "count"]
@@ -44,11 +38,17 @@ class TestHBNBCommand_create(unittest.TestCase):
                 self.assertEqual(X, FF.getvalue().strip())
 
     def misName(self):
- 
         X = "** class name missing **"
-        ops["destroy", "show", "create",".destroy", ".show"]
+        ops["destroy", "show", "create","all", "count", "update"]
         for op in ops:
             with patch("sys.stdout", new=StringIO()) as OO:
                 self.assertFalse(HBNBCommand().onecmd(op))
                 self.assertEqual(X, OO.getvalue().strip())
 
+    def misName2(self):
+        X = "** class name missing **"
+        ops[".destroy", ".show", ".count",".all", ".update"]
+        for op in ops:
+            with patch("sys.stdout", new=StringIO()) as OO:
+                self.assertFalse(HBNBCommand().onecmd(op))
+                self.assertEqual(X, OO.getvalue().strip())
