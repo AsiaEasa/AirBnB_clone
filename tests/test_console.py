@@ -13,7 +13,7 @@ class TestHBNB(unittest.TestCase):
 
     def test_smissing_cla(self):
         MSG = "** class name missing **"
-        CO = ["show"]
+        CO = ["show", ".show()"]
         for C in CO:
             with patch("sys.stdout", new=StringIO()) as OUT:
                 self.assertFalse(HBNBCommand().onecmd(C))
@@ -28,7 +28,7 @@ class TestHBNB(unittest.TestCase):
                 self.assertEqual(MSG, OUT.getvalue().strip())
     def test_desmissing_cla(self):
         MSG = "** class name missing **"
-        CO = ["destroy"]
+        CO = ["destroy", ".destroy()"]
         for C in CO:
             with patch("sys.stdout", new=StringIO()) as OUT:
                 self.assertFalse(HBNBCommand().onecmd(C))
