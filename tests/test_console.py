@@ -29,9 +29,26 @@ class TestHBNBCommand_create(unittest.TestCase):
 
     def test_mis_2(self):
         X = "** class doesn't exist **"
-        items = ["all", "count", "destroy", "show", "update"]
+        items = ["all", "count", "destroy", "show", "update", "create"]
         for item in items:
             with patch("sys.stdout", new=StringIO()) as FF:
                 self.assertFalse(HBNBCommand().onecmd(f"{item} kkk"))
                 self.assertEqual(X, FF.getvalue().strip())
+
+    def test_invalid_1(self):
+        items = ["destroy", "show", "update", "create"]
+        for item in items:
+            X = f"*** Unknown syntax: kkk.{item}()"
+            with patch("sys.stdout", new=StringIO()) as FF:
+                self.assertFalse(HBNBCommand().onecmd(f"kkk.{item}()"))
+                self.assertEqual(X, FF.getvalue().strip())
+
+    def misName(self):
+ 
+        X = "** class name missing **"
+        ops["destroy", "show", "create",".destroy", ".show"]
+        for op in ops:
+            with patch("sys.stdout", new=StringIO()) as OO:
+                self.assertFalse(HBNBCommand().onecmd(op))
+                self.assertEqual(X, OO.getvalue().strip())
 
