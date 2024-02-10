@@ -45,33 +45,17 @@ class TestHBNBCommand_create(unittest.TestCase):
                 self.assertFalse(HBNBCommand().onecmd(f"{item} kkk"))
                 self.assertEqual(X, FF.getvalue().strip())
 
-    def misName(self):
-        X = "** class name missing **"
-        ops["destroy", "show", "create","all", "count", "update"]
-        for op in ops:
-            with patch("sys.stdout", new=StringIO()) as OO:
-                self.assertFalse(HBNBCommand().onecmd(op))
-                self.assertEqual(X, OO.getvalue().strip())
-
-    def misName2(self):
-        X = "** class name missing **"
-        ops[".destroy", ".show", ".count",".all", ".update"]
-        for op in ops:
-            with patch("sys.stdout", new=StringIO()) as OO:
-                self.assertFalse(HBNBCommand().onecmd(op))
-                self.assertEqual(X, OO.getvalue().strip())
-
-    def test_smissing_cla(self):
+    def test_crmissing_cla(self):
         MSG = "** class name missing **"
-        CO = ["show", ".show()", ]
+        CO = ["create"]
         for C in CO:
             with patch("sys.stdout", new=StringIO()) as OUT:
                 self.assertFalse(HBNBCommand().onecmd(C))
                 self.assertEqual(MSG, OUT.getvalue().strip())
 
-    def test_crmissing_cla(self):
+    def test_smissing_cla(self):
         MSG = "** class name missing **"
-        CO = ["create"]
+        CO = ["show", ".show()", ]
         for C in CO:
             with patch("sys.stdout", new=StringIO()) as OUT:
                 self.assertFalse(HBNBCommand().onecmd(C))
