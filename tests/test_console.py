@@ -21,17 +21,17 @@ class TestHBNBCommand_create(unittest.TestCase):
 
     def test_mis_all(self):
         X = "** class doesn't exist **"
-        items = ["all"]
+        items = ["all", "count"]
         for item in items:
             with patch("sys.stdout", new=StringIO()) as FF:
-                self.assertFalse(HBNBCommand().onecmd(f"MyModel.{item}()"))
+                self.assertFalse(HBNBCommand().onecmd(f"kkk.{item}()"))
                 self.assertEqual(X, FF.getvalue().strip())
 
     def test_mis_count(self):
         X = "** class doesn't exist **"
-        items = ["count"]
+        items = ["all", "count"]
         for item in items:
             with patch("sys.stdout", new=StringIO()) as FF:
-                self.assertFalse(HBNBCommand().onecmd(f"MyModel.{item}()"))
+                self.assertFalse(HBNBCommand().onecmd(f"{item} kkk"))
                 self.assertEqual(X, FF.getvalue().strip())
 
