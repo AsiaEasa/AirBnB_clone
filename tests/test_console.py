@@ -13,7 +13,7 @@ from unittest.mock import patch
 class TestHBNBCommand_create(unittest.TestCase):
     """create"""
 
-    def test_mis_class(self):
+    def test_mis(self):
         X = "** class name missing **"
         with patch("sys.stdout", new=StringIO()) as FF:
             self.assertFalse(HBNBCommand().onecmd("create"))
@@ -53,4 +53,11 @@ class TestHBNBCommand_create(unittest.TestCase):
         with patch("sys.stdout", new=StringIO()) as FF:
             self.assertFalse(HBNBCommand().onecmd("help quit"))
             self.assertEqual(X, FF.getvalue().strip())
+
+    def test_help_EOF(self):
+        h = "EOF command to exit the program."
+        with patch("sys.stdout", new=StringIO()) as output:
+            self.assertFalse(HBNBCommand().onecmd("help EOF"))
+            self.assertEqual(h, output.getvalue().strip())
+
 
