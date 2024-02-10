@@ -19,7 +19,7 @@ class TestHBNBCommand_create(unittest.TestCase):
             self.assertFalse(HBNBCommand().onecmd("create"))
             self.assertEqual(X, FF.getvalue().strip())
 
-    def test_mis_all(self):
+    def test_mis_1(self):
         X = "** class doesn't exist **"
         items = ["all", "count"]
         for item in items:
@@ -27,9 +27,9 @@ class TestHBNBCommand_create(unittest.TestCase):
                 self.assertFalse(HBNBCommand().onecmd(f"kkk.{item}()"))
                 self.assertEqual(X, FF.getvalue().strip())
 
-    def test_mis_count(self):
+    def test_mis_2(self):
         X = "** class doesn't exist **"
-        items = ["all", "count"]
+        items = ["all", "count", "destroy", "show", "update"]
         for item in items:
             with patch("sys.stdout", new=StringIO()) as FF:
                 self.assertFalse(HBNBCommand().onecmd(f"{item} kkk"))
