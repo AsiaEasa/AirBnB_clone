@@ -35,16 +35,41 @@ class TestHBNBCommand_create(unittest.TestCase):
                 self.assertFalse(HBNBCommand().onecmd(f"{item} kkk"))
                 self.assertEqual(X, FF.getvalue().strip())
 
-    def test_empty_line(self):
-        with patch("sys.stdout", new=StringIO()) as output:
+    def test_emptyline(self):
+        with patch("sys.stdout", new=StringIO()) as FF:
             self.assertFalse(HBNBCommand().onecmd(""))
-            self.assertEqual("", output.getvalue().strip())
+            self.assertEqual("", FF.getvalue().strip())
 
-    def test_quit_exits(self):
-        with patch("sys.stdout", new=StringIO()) as output:
+    def test_quit(self):
+        with patch("sys.stdout", new=StringIO()) as FF:
             self.assertTrue(HBNBCommand().onecmd("quit"))
 
-    def test_EOF_exits(self):
-        with patch("sys.stdout", new=StringIO()) as output:
+    def test_EOF(self):
+        with patch("sys.stdout", new=StringIO()) as FF:
             self.assertTrue(HBNBCommand().onecmd("EOF"))
+
+    def test_destroy_id_missing_space_notation(self):
+        correct = "** instance id missing **"
+        with patch("sys.stdout", new=StringIO()) as output:
+            self.assertFalse(HBNBCommand().onecmd("destroy BaseModel"))
+            self.assertEqual(correct, output.getvalue().strip())
+        with patch("sys.stdout", new=StringIO()) as output:
+            self.assertFalse(HBNBCommand().onecmd("destroy User"))
+            self.assertEqual(correct, output.getvalue().strip())
+        with patch("sys.stdout", new=StringIO()) as output:
+            self.assertFalse(HBNBCommand().onecmd("destroy State"))
+            self.assertEqual(correct, output.getvalue().strip())
+        with patch("sys.stdout", new=StringIO()) as output:
+            self.assertFalse(HBNBCommand().onecmd("destroy City"))
+            self.assertEqual(correct, output.getvalue().strip())
+        with patch("sys.stdout", new=StringIO()) as output:
+            self.assertFalse(HBNBCommand().onecmd("destroy Amenity"))
+            self.assertEqual(correct, output.getvalue().strip())
+        with patch("sys.stdout", new=StringIO()) as output:
+            self.assertFalse(HBNBCommand().onecmd("destroy Place"))
+            self.assertEqual(correct, output.getvalue().strip())
+        with patch("sys.stdout", new=StringIO()) as output:
+            self.assertFalse(HBNBCommand().onecmd("destroy Review"))
+            self.assertEqual(correct, output.getvalue().strip())
+
 
