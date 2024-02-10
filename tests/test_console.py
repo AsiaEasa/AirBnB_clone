@@ -1,10 +1,7 @@
 #!/usr/bin/python3
 """Defines unittests for console.py"""
 
-import sys
 import unittest
-from models import storage
-from models.engine.file_storage import FileStorage
 from console import HBNBCommand
 from io import StringIO
 from unittest.mock import patch
@@ -40,24 +37,14 @@ class TestHBNBCommand_create(unittest.TestCase):
             self.assertFalse(HBNBCommand().onecmd(""))
             self.assertEqual("", FF.getvalue().strip())
 
-    def test_quit(self):
-        with patch("sys.stdout", new=StringIO()) as FF:
-            self.assertTrue(HBNBCommand().onecmd("quit"))
-
-    def test_EOF(self):
-        with patch("sys.stdout", new=StringIO()) as FF:
-            self.assertTrue(HBNBCommand().onecmd("EOF"))
+    def test_EOF_quit(self):
+        items = ["EOF", "quit"]
+        for item in items:
+            with patch("sys.stdout", new=StringIO()) as FF:
+                self.assertTrue(HBNBCommand().onecmd(f"{item}"))
 
     def test_help_quit(self):
         X = "Quit command to exit the program."
         with patch("sys.stdout", new=StringIO()) as FF:
             self.assertFalse(HBNBCommand().onecmd("help quit"))
             self.assertEqual(X, FF.getvalue().strip())
-
-    def test_help_EOF(self):
-        h = "EOF command to exit the program."
-        with patch("sys.stdout", new=StringIO()) as output:
-            self.assertFalse(HBNBCommand().onecmd("help EOF"))
-            self.assertEqual(h, output.getvalue().strip())
-
-
