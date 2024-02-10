@@ -24,62 +24,76 @@ class HBNBCommand(cmd.Cmd):
     KH_K = list(KH.keys())
 
     def default(self, arg):
-        """Default behavior for cmd module when input is invalid"""
+        """the default method of the parent class.
+        """
 
-        TT = {
-            "all": self.do_all,
-            "show": self.do_show,
-            "destroy": self.do_destroy,
-            "update": self.do_update,
-            "count": self.do_count,
-        }
-        match = re.search(r"\.", arg)
-        if bool(match):
-            arg_list = arg.split(".")
-            clsS = arg_list[0]
-            start, end = match.span()
-            arGl = [arg[:start], arg[end:]]
+        " Make the app work non-interactively"
+        if not sys.stdin.isatty():
+            print()
 
-            match = re.search(r"\((.*?)\)", arGl[1])
-            if bool(match):
-                start, end = match.span()
-                command = arg_list[1].split("(")
-                cmet = command[0]
-                e_arg = command[1].split(")")[0]
-                al = e_arg.split(",")
-                cotext = arGl[1][:start]
-                coarg = match.group()[1:-1]
-                command = [cotext, coarg]
+        args = arg.split(".")
+        C_name = args[0]
+        " Check if the line matches the pattern <class name>.all()"
+        A = re.search(r"^(\w*)\.all\(\)$", arg)
+        if A:
+            self.do_all(C_name)
+            return ""
 
-                if cmet in TT.keys():
-                    if cmet != "update":
-                        call = f"{arGl[0]} {e_arg}"
-                        return TT[cmet](call)
-                    elif len(al) >= 2 and re.search(r"\{.*?\}", e_arg):
-                        ob = al[0]
-                        ana = al[1:]
-                        ana[0] = ana[0].lstrip()
-                        for i in range(1, len(ana)):
-                            ana[i] = "," + ana[i]
-                        jostr = "".join(ana)
-                        result_dict = ast.literal_eval(jostr)
-                        for k, v in result_dict.items():
-                            TT[cmet]("{} {} {} {}".format(clsS, ob, k, v))
-                        return ""
+        " Check if the line matches the pattern <class name>.count()"
+        B = re.search(r"^(\w*)\.count\(\)$", arg)
+        if B:
+            self.do_count(C_name)
+            return ""
 
-                    elif len(al) == 3:
-                        ob = al[0]
-                        ana = al[1:]
-                        for i in range(0, len(ana)):
-                            ana[i] = ana[i].lstrip()
-                            TT[cmet](
-                                "{} {} {} {}".format(clsS, ob, ana[0], ana[1])
-                            )
-                        return ""
+        " Check if the line matches the pattern <class name>.show(<id>)"
+        C = re.search(r"^(\w*)\.show\(['\"]?([\w-]+)['\"]?\)$", arg)
+        if C:
+            ID = args[1][5:-1]
+            Input = f"{C_name} {ID}"
+            self.do_show(Input)
+            return ""
 
-        print(f"*** Unknown syntax: {arg}")
+        " Check if the line matches the pattern <class name>.destroy(<id>)"
+        D = re.search(r"^(\w*)\.destroy\(['\"]?([\w-]+)['\"]?\)$", arg)
+        if D:
+            ID = args[1][8:-1]
+            Input = f"{C_name} {ID}"
+            self.do_destroy(Input)
+            return ""
 
-        return False
+        " Check if the line matches the pattern of update in 15 and 16"
+        X = re.search(
+            r"^(\w*)\.update\(['\"]?([\w-]+)['\"]?, "
+            r"['\"]?([\w-]+)['\"]?, (.*?)\)$",
+            arg
+        )
+
+        Y = re.search(
+            r"^(\w+)\.update\(['\"]?([\w-]+)['\"]?, ({.*})\)$",
+            arg
+        )
+
+        if X:
+            PR = args[1][7:-1]
+            AR = PR.split(", ")
+            Input = f"{C_name} {AR[0]} {AR[1]} {AR[2]}"
+            self.do_update(Input)
+            return ""
+
+        if Y:
+            PR = args[1][7:-1]
+            AR = PR.split(", ", 1)
+            ID = AR[0]
+            QU = AR[1].replace("'", '"')
+            SS = json.loads(QU)
+            for K in SS:
+                V = SS[K]
+                Input = f"{C_name} {ID} {K} {V}"
+                self.do_update(Input)
+            return ""
+
+        if not A and not B and not C and not D and not X and not Y:
+            print("*** Unknown syntax: {}".format(arg))
 
     def do_all(self, arg):
         """Prints string representation of all instances or to any class.
