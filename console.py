@@ -46,7 +46,7 @@ class HBNBCommand(cmd.Cmd):
             return ""
 
         " Check if the line matches the pattern <class name>.show(<id>)"
-        C = re.search(r"^(\w*)\.show\(['\"]?([\w-]+)['\"]?\)$", arg)
+        C = re.search(r"^(\w*)\.show\((.*?)\)$", arg)
         if C:
             ID = args[1][5:-1]
             Input = f"{C_name} {ID}"
@@ -54,7 +54,7 @@ class HBNBCommand(cmd.Cmd):
             return ""
 
         " Check if the line matches the pattern <class name>.destroy(<id>)"
-        D = re.search(r"^(\w*)\.destroy\(['\"]?([\w-]+)['\"]?\)$", arg)
+        D = re.search(r"^(\w*)\.destroy\((.*?)\)$", arg)
         if D:
             ID = args[1][8:-1]
             Input = f"{C_name} {ID}"
