@@ -24,8 +24,8 @@ class TestHBNBCommand_create(unittest.TestCase):
         items = ["count", "all"]
         for item in items:
             with patch("sys.stdout", new=StringIO()) as FF:
-            self.assertFalse(HBNBCommand().onecmd(f"MyModel.{item}()"))
-            self.assertEqual(X, FF.getvalue().strip())
+                self.assertFalse(HBNBCommand().onecmd(f"MyModel.{item}()"))
+                self.assertEqual(X, FF.getvalue().strip())
 
     def test_update_miss(self):
         correct = "** value missing **"
