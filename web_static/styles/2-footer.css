@@ -1,0 +1,17 @@
+footer {
+    background-color: #00FF00;
+    height: 60px;
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+footer p {
+    color: black;
+    font-family: Georgia, sans-serif;
+    font-size: 20px;
+    margin: 0;
+}
